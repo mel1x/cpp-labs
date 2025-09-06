@@ -1,0 +1,6 @@
+C:/Users/atome/OneDrive/Рабочий стол/prog/cpp/cpp-labs/Lab1/out/build/x64-Debug/CMakeFiles/main.dir
+C:/Users/atome/OneDrive/Рабочий стол/prog/cpp/cpp-labs/Lab1/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/atome/OneDrive/Рабочий стол/prog/cpp/cpp-labs/Lab1/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/atome/OneDrive/Рабочий стол/prog/cpp/cpp-labs/Lab1/out/build/x64-Debug/mixUtils_build/CMakeFiles/mixutils.dir
+C:/Users/atome/OneDrive/Рабочий стол/prog/cpp/cpp-labs/Lab1/out/build/x64-Debug/mixUtils_build/CMakeFiles/edit_cache.dir
+C:/Users/atome/OneDrive/Рабочий стол/prog/cpp/cpp-labs/Lab1/out/build/x64-Debug/mixUtils_build/CMakeFiles/rebuild_cache.dir
