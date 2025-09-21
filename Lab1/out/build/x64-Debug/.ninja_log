@@ -1,6 +1,0 @@
-# ninja log v6
-6	32	7788561495338194	C:/Users/atome/OneDrive/Рабочий стол/prog/cpp/cpp-labs/Lab1/out/build/x64-Debug/CMakeFiles/cmake.verify_globs	c8920ea5d0baf2dd
-33	919	7788561495609017	mixUtils_build/CMakeFiles/mixutils.dir/src/mixUtils.cpp.obj	9e372b7193025fe4
-920	1006	7788561504481772	mixUtils_build/mixutils.lib	4e247f9befc74619
-36	1309	7788561495648975	CMakeFiles/main.dir/main.cpp.obj	af7efbee8d4ee42e
-1309	1652	7788561508370786	main.exe	f12ad83ce2edd985
