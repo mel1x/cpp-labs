@@ -8,7 +8,7 @@ using mix::print;
 using mix::formatBool;
 
 bool sum3(int x, int y, int z) {
-    return (x + y == z) || (x + z == y) || (y + z == x);
+    return (x + y == z) or (x + z == y) or (y + z == x);
 }
 
 int main() {
@@ -20,6 +20,6 @@ int main() {
         nums[i] = num;
     }
 
-    print(L"Можно ли получить одни из чисел, суммируя два остальных");
+    print(L"Можно ли получить одни из чисел, суммируя два остальных?");
     print(L"Результат:", formatBool(sum3(nums[0], nums[1], nums[2])));
 }

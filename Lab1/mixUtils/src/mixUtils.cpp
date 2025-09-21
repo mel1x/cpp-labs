@@ -6,7 +6,7 @@ using std::wcout;
 
 namespace mix {
 
-    wstring formatBool(bool state) {
+    std::wstring formatBool(bool state) {
         if (state) {
             return L"True";
         }

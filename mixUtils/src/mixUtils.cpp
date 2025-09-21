@@ -1,12 +1,16 @@
 #include <iostream>
-#include <locale>
+#include <string>
 
-using std::locale;
 using std::wcin;
 using std::wcout;
 
 namespace mix {
 
-    // todo
+    std::wstring formatBool(bool state) {
+        if (state) {
+            return L"True";
+        }
+        return L"False";
+    }
 
 }

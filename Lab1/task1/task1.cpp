@@ -6,6 +6,7 @@ using std::wcin;
 using std::wcout;
 using mix::input;
 using mix::print;
+using mix::formatBool;
 
 bool isUpperCase(wchar_t x) {
     int charCode{ static_cast<int>(x) };
@@ -21,13 +22,6 @@ bool isUpperCase(wchar_t x) {
     }
     
     return false;
-}
-
-wstring formatBool(bool state) {
-    if (state) {
-        return L"True";
-    }
-    return L"False";
 }
 
 int main() {
