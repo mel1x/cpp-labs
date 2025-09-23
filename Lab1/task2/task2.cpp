@@ -16,7 +16,7 @@ int main() {
     int nums[3];
 
     for (int i = 0;i < 3;i++) {
-        int num = input<int>(L"Введите число ");
+        int num = input<int>(L"Введите число " + std::to_wstring(i + 1) + L": ");
         nums[i] = num;
     }
 
