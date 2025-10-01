@@ -5,21 +5,19 @@ using std::wcin;
 using std::wcout;
 using mix::input;
 using mix::print;
-using mix::formatBool;
 
-bool sum3(int x, int y, int z) {
-    return (x + y == z) or (x + z == y) or (y + z == x);
+int sumLastNums(int x) {
+    return abs(x%10 + (x/10)%10);
 }
 
 int main() {
     mix::setRuLocale();
-    int nums[3];
 
-    for (int i = 0;i < 3;i++) {
-        int num = input<int>(L"Введите число " + std::to_wstring(i + 1) + L": ");
-        nums[i] = num;
+    int x = input<int>(L"Введите число");
+    if (abs(x) < 10) {
+        print(L"Число должно иметь хотя бы 2 знака!");
+        return 0;
     }
 
-    print(L"Можно ли получить одни из чисел, суммируя два остальных?");
-    print(L"Результат:", formatBool(sum3(nums[0], nums[1], nums[2])));
+    print(L"Результат сложения последних знаков: ", sumLastNums(x));
 }
