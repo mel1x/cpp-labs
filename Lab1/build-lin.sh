@@ -1,36 +1,68 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -u
 
 echo "Building all taskN.cpp files for Linux..."
 echo
 
-# Create lin-builds folder if it doesn't exist
-if [ ! -d "lin-builds" ]; then
-    echo "Creating lin-builds folder..."
-    mkdir -p "lin-builds"
+mkdir -p "lin-builds"
+
+JOBS="$(nproc || echo 4)"
+CXX_BIN="${CXX_BIN:-g++}"
+CXXFLAGS="-std=c++23 -O2 -pipe -Wall -Wextra -Wpedantic"
+LDFLAGS=""
+
+# Сформировать команду компилятора как массив: [ccache, g++] или просто [g++]
+if command -v ccache >/dev/null 2>&1; then
+  COMPILER=(ccache "$CXX_BIN")
+else
+  COMPILER=("$CXX_BIN")
 fi
 
-# Compile all task*.cpp files from their respective folders
-for dir in task*/; do
-    if [ -d "$dir" ]; then
-        taskname=$(basename "$dir")
-        if [ -f "$dir/${taskname}.cpp" ]; then
-            echo "Compiling $dir${taskname}.cpp..."
-            g++ -std=c++23 "$dir${taskname}.cpp" -o "lin-builds/${taskname}.out"
-            
-            if [ $? -eq 0 ]; then
-                echo "SUCCESS: $dir${taskname}.cpp compiled to lin-builds/${taskname}.out"
-            else
-                echo "ERROR: Failed to compile $dir${taskname}.cpp"
-            fi
-            echo
-        fi
-    fi
+ok_list=()
+fail_list=()
+
+compile_one() {
+  local dir="$1"
+  local taskname src out
+  taskname="$(basename "$dir")"
+  src="${dir%/}/${taskname}.cpp"
+  out="lin-builds/${taskname}.out"
+
+  [[ -f "$src" ]] || { echo "SKIP: $src not found"; return 0; }
+
+  echo "Compiling $src ..."
+  if "${COMPILER[@]}" $CXXFLAGS "$src" -o "$out" $LDFLAGS; then
+    echo "SUCCESS: $src -> $out"
+    return 0
+  else
+    echo "ERROR: Failed to compile $src"
+    return 1
+  fi
+}
+
+# Параллельный запуск
+while IFS= read -r -d '' dir; do
+  while (( $(jobs -rp | wc -l) >= JOBS )); do
+    wait -n
+  done
+  compile_one "$dir" &
+  pids+=("$!")
+  names+=("$dir")
+done < <(find . -maxdepth 1 -type d -name 'task*' -print0)
+
+# Ожидание результатов
+for i in "${!pids[@]}"; do
+  if wait "${pids[$i]}"; then
+    ok_list+=("${names[$i]}")
+  else
+    fail_list+=("${names[$i]}")
+  fi
 done
 
-echo "Build completed!"
-echo "Results are in lin-builds/ folder"
+chmod +x lin-builds/*.out 2>/dev/null || true
 
-# Make all .out files executable
-chmod +x lin-builds/*.out 2>/dev/null
-
-echo "All executables have been made executable"
+echo
+echo "Build finished."
+echo "OK:   ${#ok_list[@]}"
+echo "FAIL: ${#fail_list[@]}"
+((${#fail_list[@]})) && printf 'Failed:\n- %s\n' "${fail_list[@]}"

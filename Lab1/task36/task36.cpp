@@ -1,18 +1,15 @@
 #include "../mixUtils/include/mixUtils.hpp"
 #include <iostream>
 #include <sstream>
-#include <vector>
 
 using std::wcin;
 using std::wcout;
 using std::wstring;
 using std::wstringstream;
-using std::vector;
 
-void reverse(vector<int>& arr) {
-    size_t n = arr.size();
-    for (size_t i = 0; i < n / 2; i++) {
-        std::swap(arr[i], arr[n - i - 1]);
+void reverse(int arr[], int size) {
+    for (int i = 0; i < size / 2; i++) {
+        std::swap(arr[i], arr[size - i - 1]);
     }
 }
 
@@ -24,18 +21,19 @@ int main() {
     std::getline(wcin, line);
 
     wstringstream ss(line);
-    vector<int> numbers;
-    int num;
-    while (ss >> num) {
-        numbers.push_back(num);
+    int arr[100];
+    int num, size = 0;
+
+    while (ss >> num && size < 100) {
+        arr[size++] = num;
     }
 
-    reverse(numbers);
+    reverse(arr, size);
 
     wcout << L"[";
-    for (size_t i = 0; i < numbers.size(); i++) {
-        wcout << numbers[i];
-        if (i + 1 < numbers.size()) {
+    for (int i = 0; i < size; i++) {
+        wcout << arr[i];
+        if (i + 1 < size) {
             wcout << L", ";
         }
     }
