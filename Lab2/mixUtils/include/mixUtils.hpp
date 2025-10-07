@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <locale>
+#include "mixutils/types.hpp"
 #include "mixutils/input.hpp"
 #include "mixutils/setRuLocale.hpp"
 
