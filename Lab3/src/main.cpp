@@ -4,6 +4,7 @@
 #include "task2/department.hpp"
 #include "task3/worker.hpp"
 #include "task3/division.hpp"
+#include "task4/building.hpp"
 #include "utils.hpp"
 #include <map>
 #include <any>
@@ -223,7 +224,7 @@ void showEmployeesAndDepartment() {
 
 
 // <Worker>
-void createDivisionTask3(vector<any>& vault) {
+void createDivision(vector<any>& vault) {
     wstring name = input<wstring>(L"Введите название подразделения");
 
     if (vault.size() > 4 && vault[4].type() == typeid(Division*)) {
@@ -245,7 +246,7 @@ void createDivisionTask3(vector<any>& vault) {
     print(L"Подразделение создано!");
 }
 
-void createWorkerTask3(vector<any>& vault) {
+void createWorker(vector<any>& vault) {
     if (vault.size() <= 4 || vault[4].type() != typeid(Division*)) {
         print(L"Ошибка! Сначала создайте подразделение");
         return;
@@ -266,7 +267,7 @@ void createWorkerTask3(vector<any>& vault) {
     print(L"Работник создан и добавлен в подразделение!");
 }
 
-void setDivisionManagerTask3(vector<any>& vault) {
+void setDivisionManager(vector<any>& vault) {
     if (vault.size() <= 4 || vault[4].type() != typeid(Division*)) {
         print(L"Ошибка! Сначала создайте подразделение");
         return;
@@ -298,7 +299,7 @@ void setDivisionManagerTask3(vector<any>& vault) {
     print(L"Работник назначен начальником подразделения!");
 }
 
-void showWorkerTask3(vector<any>& vault) {
+void showWorker(vector<any>& vault) {
     if (vault.size() <= 5 || vault[5].type() != typeid(vector<Worker*>)) {
         print(L"Ошибка! Сначала создайте работников");
         return;
@@ -323,7 +324,7 @@ void showWorkerTask3(vector<any>& vault) {
     workers[choice - 1]->print();
 }
 
-void showAllColleaguesTask3(vector<any>& vault) {
+void showAllColleagues(vector<any>& vault) {
     if (vault.size() <= 5 || vault[5].type() != typeid(vector<Worker*>)) {
         print(L"Ошибка! Сначала создайте работников");
         return;
@@ -387,6 +388,53 @@ void showWorkersAndDivisionDemo() {
 // </Worker>
 
 
+// <Building>
+void createBuilding(vector<any>& vault) {
+    vault[6] = Building(input<int>(L"Введите количество этажей", [](int x) { return x > 0; }));
+    print(L"Объект Building создан!");
+}
+
+void getBuilding(vector<any>& vault) {
+    if (vault.size() <= 6 || vault[6].type() != typeid(Building)) {
+        wcout << L"Ошибка! Создайте объект здания" << endl;
+        return;
+    }
+    any_cast<Building>(vault[6]).print();
+}
+
+void getBuildingFloors(vector<any>& vault) {
+    if (vault.size() <= 6 || vault[6].type() != typeid(Building)) {
+        wcout << L"Ошибка! Создайте объект здания" << endl;
+        return;
+    }
+    print(L"Количество этажей: ", any_cast<Building>(vault[6]).getFloors());
+}
+
+void showBuildingVariants() {
+    print(L"2 этажа:", Building(2).toString());
+    print(L"35 этажей:", Building(35).toString());
+    print(L"91 этаж:", Building(91).toString());
+}
+
+void demonstrateImmutability() {
+    print(L"=== Демонстрация неизменяемости количества этажей ===\n");
+
+    Building building(10);
+    print(L"Создано здание:");
+    building.print();
+
+    print(L"\n--- Попытка изменить количество этажей ---");
+
+    print(L"\nСоздаем новое здание с 20 этажами:");
+    Building newBuilding(20);
+    newBuilding.print();
+
+    print(L"\nПервое здание осталось неизменным:");
+    building.print();
+}
+// </Building>
+
+
 int main() {
     setRuLocale();
     
@@ -417,12 +465,20 @@ int main() {
     };
 
     menuMap[L"3.4 Работники и подразделения"] = {
-        {L"Создать подразделение", [&objects_vault]() { createDivisionTask3(objects_vault); }},
-        {L"Создать работника", [&objects_vault]() { createWorkerTask3(objects_vault); }},
-        {L"Назначить работника начальником подразделения", [&objects_vault]() { setDivisionManagerTask3(objects_vault); }},
-        {L"Показать информацию о работнике", [&objects_vault]() { showWorkerTask3(objects_vault); }},
-        {L"Показать всех коллег работника (по отделу)", [&objects_vault]() { showAllColleaguesTask3(objects_vault); }},
+        {L"Создать подразделение", [&objects_vault]() { createDivision(objects_vault); }},
+        {L"Создать работника", [&objects_vault]() { createWorker(objects_vault); }},
+        {L"Назначить работника начальником подразделения", [&objects_vault]() { setDivisionManager(objects_vault); }},
+        {L"Показать информацию о работнике", [&objects_vault]() { showWorker(objects_vault); }},
+        {L"Показать всех коллег работника (по отделу)", [&objects_vault]() { showAllColleagues(objects_vault); }},
         {L"Показать демонстрацию по заданию", showWorkersAndDivisionDemo}
+    };
+
+    menuMap[L"4.3 Здание"] = {
+        {L"Создать объект класса", [&objects_vault]() { createBuilding(objects_vault); }},
+        {L"Получить значение", [&objects_vault]() { getBuilding(objects_vault); }},
+        {L"Получить количество этажей", [&objects_vault]() { getBuildingFloors(objects_vault); }},
+        {L"Вывести варианты по заданию (2, 35, 91 этаж)", showBuildingVariants},
+        {L"Демонстрация неизменяемости этажей", demonstrateImmutability}
     };
 
 
