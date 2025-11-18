@@ -26,7 +26,7 @@ inline void setRuLocale() {
     #endif
 }
 
-void clearConsole() {
+inline void clearConsole() {
 #ifdef _WIN32
     system("cls");
 #else
