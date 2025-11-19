@@ -20,9 +20,20 @@ inline void setRuLocale() {
         _setmode(_fileno(stdout), _O_U16TEXT);
         _setmode(_fileno(stdin), _O_U16TEXT);
     #else
-        setlocale(LC_ALL, "ru_RU.UTF-8");
-        wcin.imbue(locale("ru_RU.UTF-8"));
-        wcout.imbue(locale("ru_RU.UTF-8"));
+        try {
+            setlocale(LC_ALL, "ru_RU.UTF-8");
+            wcin.imbue(std::locale("ru_RU.UTF-8"));
+            wcout.imbue(std::locale("ru_RU.UTF-8"));
+        } catch (const std::exception&) {
+            try {
+                setlocale(LC_ALL, "");
+                wcin.imbue(std::locale(""));
+                wcout.imbue(std::locale(""));
+            } catch (const std::exception&) {
+                wcin.imbue(std::locale::classic());
+                wcout.imbue(std::locale::classic());
+            }
+        }
     #endif
 }
 
