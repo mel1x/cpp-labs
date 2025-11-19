@@ -418,8 +418,6 @@ void showBuildingVariants() {
 }
 
 void demonstrateImmutability() {
-    print(L"=== Демонстрация неизменяемости количества этажей ===\n");
-
     Building building(10);
     print(L"Создано здание:");
     building.print();
