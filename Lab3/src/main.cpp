@@ -5,6 +5,7 @@
 #include "task3/worker.hpp"
 #include "task3/division.hpp"
 #include "task4/building.hpp"
+#include "task5/pistol.hpp"
 #include "utils.hpp"
 #include <map>
 #include <any>
@@ -435,6 +436,60 @@ void demonstrateImmutability() {
 // </Building>
 
 
+// <Pistol>
+void createPistol(vector<any>& vault) {
+    int choice = input<int>(L"1 - Создать с указанным количеством патронов\n2 - Создать с 5 патронами (по умолчанию)\nВыберите вариант",
+                           [](int x) { return x == 1 || x == 2; },
+                           L"Ошибка! Введите 1 или 2");
+
+    if (choice == 1) {
+        int bullets = input<int>(L"Введите количество патронов", [](int x) { return x >= 0; });
+        vault[7] = Pistol(bullets);
+    } else {
+        vault[7] = Pistol();
+    }
+
+    print(L"Пистолет создан!");
+}
+
+void shootPistol(vector<any>& vault) {
+    if (vault.size() <= 7 || vault[7].type() != typeid(Pistol)) {
+        print(L"Ошибка! Сначала создайте пистолет");
+        return;
+    }
+
+    Pistol& pistol = any_cast<Pistol&>(vault[7]);
+    pistol.shoot();
+}
+
+void getPistol(vector<any>& vault) {
+    if (vault.size() <= 7 || vault[7].type() != typeid(Pistol)) {
+        print(L"Ошибка! Сначала создайте пистолет");
+        return;
+    }
+
+    any_cast<Pistol>(vault[7]).print();
+}
+
+void demonstratePistol() {
+    print(L"=== Демонстрация работы пистолета ===\n");
+
+    print(L"Создаем пистолет с 3 патронами:");
+    Pistol pistol(3);
+    pistol.print();
+
+    print(L"\nВыполняем 5 выстрелов:");
+    for (int i = 1; i <= 5; i++) {
+        wcout << L"Выстрел " << i << L": ";
+        pistol.shoot();
+    }
+
+    print(L"\nСостояние пистолета после выстрелов:");
+    pistol.print();
+}
+// </Pistol>
+
+
 int main() {
     setRuLocale();
     
@@ -479,6 +534,13 @@ int main() {
         {L"Получить количество этажей", [&objects_vault]() { getBuildingFloors(objects_vault); }},
         {L"Вывести варианты по заданию (2, 35, 91 этаж)", showBuildingVariants},
         {L"Демонстрация неизменяемости этажей", demonstrateImmutability}
+    };
+
+    menuMap[L"5.1 Пистолет"] = {
+        {L"Создать пистолет", [&objects_vault]() { createPistol(objects_vault); }},
+        {L"Выстрелить", [&objects_vault]() { shootPistol(objects_vault); }},
+        {L"Показать состояние пистолета", [&objects_vault]() { getPistol(objects_vault); }},
+        {L"Демонстрация по заданию (3 патрона, 5 выстрелов)", demonstratePistol}
     };
 
 
