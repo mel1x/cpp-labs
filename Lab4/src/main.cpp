@@ -8,6 +8,9 @@
 #include <functional>
 
 using namespace std;
+#ifndef ushort
+typedef unsigned short ushort;
+#endif
 
 struct MenuItem {
     wstring name;
