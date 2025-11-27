@@ -16,6 +16,12 @@ QuadraticEquation::QuadraticEquation(double a, double b)
 QuadraticEquation::QuadraticEquation(double a, double b, double c) 
     : a(a), b(b), c(c) {
 }
+QuadraticEquation::QuadraticEquation(QuadraticEquation &Equation) {
+    a = Equation.getA();
+    b = Equation.getB();
+    c = Equation.getC();
+}
+
 
 double QuadraticEquation::getA() const {
     return a;

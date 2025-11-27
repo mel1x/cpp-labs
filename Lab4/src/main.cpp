@@ -38,7 +38,7 @@ void showSubMenu(wstring categoryName, vector<MenuItem>& items) {
 }
 
 // <Equation>
-void createEquation(vector<any>& vault) {
+void createEquation(vector<QuadraticEquation>& vault) {
     ushort limit = input<ushort>(L"Введите количество коэффициентов", [](int x) { return x >= 0 and x <= 3; });
     
     vector<double> coefs;
@@ -64,42 +64,42 @@ void createEquation(vector<any>& vault) {
     }
 }
 
-void getCoefs(vector<any>& vault) {
-    if (vault.size() <= 0 || vault[0].type() != typeid(QuadraticEquation)) {
+void getCoefs(vector<QuadraticEquation>& vault) {
+    if (vault.size() <= 0) {
         print(L"Ошибка! Создайте объект уравнения");
         return;
     }
-    QuadraticEquation eq = any_cast<QuadraticEquation>(vault[0]);
+    QuadraticEquation eq = vault[0];
     print(L"a:", eq.getA(), L"b:", eq.getB(), L"c:", eq.getC());
 }
 
-void getEquation(vector<any>& vault) {
-    if (vault.size() <= 0 || vault[0].type() != typeid(QuadraticEquation)) {
+void getEquation(vector<QuadraticEquation>& vault) {
+    if (vault.size() <= 0) {
         print(L"Ошибка! Создайте объект уравнения");
         return;
     }
-    QuadraticEquation eq = any_cast<QuadraticEquation>(vault[0]);
+    QuadraticEquation eq = vault[0];
     print(eq.toString());
     wcout << eq;
     
     print();
 }
 
-void getDiscriminant(vector<any>& vault) {
-    if (vault.size() <= 0 || vault[0].type() != typeid(QuadraticEquation)) {
+void getDiscriminant(vector<QuadraticEquation>& vault) {
+    if (vault.size() <= 0) {
         print(L"Ошибка! Создайте объект уравнения");
         return;
     }
-    QuadraticEquation eq = any_cast<QuadraticEquation>(vault[0]);
+    QuadraticEquation eq = vault[0];
     print(L"Дискременант:", eq.getDiscriminant());
 }
 
-void solve(vector<any>& vault) {
-    if (vault.size() <= 0 || vault[0].type() != typeid(QuadraticEquation)) {
+void solve(vector<QuadraticEquation>& vault) {
+    if (vault.size() <= 0) {
         print(L"Ошибка! Создайте объект уравнения");
         return;
     }
-    QuadraticEquation eq = any_cast<QuadraticEquation>(vault[0]);
+    QuadraticEquation eq = vault[0];
     vector<double> result = eq.solve();
 
     print(L"Решений:", result.size());
@@ -113,12 +113,12 @@ void solve(vector<any>& vault) {
     }
 }
 
-void checkOperators(vector<any>& vault) {
-    if (vault.size() <= 0 || vault[0].type() != typeid(QuadraticEquation)) {
+void checkOperators(vector<QuadraticEquation>& vault) {
+    if (vault.size() <= 0) {
         print(L"Ошибка! Создайте объект уравнения");
         return;
     }
-    QuadraticEquation eq = any_cast<QuadraticEquation>(vault[0]);
+    QuadraticEquation eq = vault[0];
     print(L"= Операторы ++ и -- =");
     print(L"Изначальное уравнение");
     print(eq.toString());
@@ -152,7 +152,7 @@ void checkOperators(vector<any>& vault) {
 int main() {
     setRuLocale();
 
-    vector<any> objects_vault(32);
+    vector<QuadraticEquation> objects_vault(2);
     map<wstring, vector<MenuItem>> menuMap;
 
     menuMap[L"1/2 Квадратное уравнение"] = {

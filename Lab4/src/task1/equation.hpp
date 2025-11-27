@@ -17,6 +17,7 @@ public:
     QuadraticEquation(double a);
     QuadraticEquation(double a, double b);
     QuadraticEquation(double a, double b, double c);
+    QuadraticEquation(QuadraticEquation &Equation);
 
     double getA() const;
     double getB() const;
