@@ -4,10 +4,9 @@
 #include <iostream>
 #include <filesystem>
 
-using namespace std;
 namespace fs = std::filesystem;
 
-Task6::Task6(wstring inFilename, wstring outFilename) 
+Task6::Task6(std::wstring inFilename, std::wstring outFilename) 
     : inFilename(inFilename), outFilename(outFilename) {
 }
 
@@ -17,7 +16,7 @@ bool Task6::isRuLetter(wchar_t ch) {
            ch == 0x0451;
 }
 
-bool Task6::containsRuLetters(const wstring& line) {
+bool Task6::containsRuLetters(const std::wstring& line) {
     for (wchar_t ch : line) {
         if (isRuLetter(ch)) {
             return true;
@@ -47,7 +46,7 @@ void Task6::createFile() {
     print(L"Добавление примеров строк:");
     print();
     
-    vector<wstring> sampleLines = {
+    std::vector<std::wstring> sampleLines = {
         L"Hello World",
         L"Привет мир",
         L"123456789",
@@ -74,7 +73,7 @@ void Task6::createFile() {
     print(L"Всего строк:", sampleLines.size());
 }
 
-void Task6::addFileLine(const wstring& line) {
+void Task6::addFileLine(const std::wstring& line) {
     fs::path path(inFilename);
     
     wofstream file(path, ios::app);
@@ -118,7 +117,7 @@ void Task6::copyLines() {
     print(L"\nКопирование строк без русских букв...");
     print();
     
-    wstring line;
+    std::wstring line;
     int totalLines = 0;
     int copiedLines = 0;
     
@@ -144,7 +143,7 @@ void Task6::copyLines() {
     print(L"Результат сохранён в файл", outFilename);
 }
 
-void Task6::printFile(const wstring& filename) {
+void Task6::printFile(const std::wstring& filename) {
     fs::path path(filename);
     
     wifstream file(path);
@@ -160,7 +159,7 @@ void Task6::printFile(const wstring& filename) {
     print(L"Содержимое файла", filename);
     print();
     
-    wstring line;
+    std::wstring line;
     int lineNumber = 1;
     
     while (getline(file, line)) {

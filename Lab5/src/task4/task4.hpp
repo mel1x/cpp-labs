@@ -3,15 +3,13 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 class Task4 {
 private:
-    wstring filename;
-    vector<int> numbers;
+    std::wstring filename;
+    std::vector<int> numbers;
 
 public:
-    Task4(wstring filename);
+    Task4(std::wstring filename);
     
     void fillFile(int count, int minValue, int maxValue);
     

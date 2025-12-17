@@ -11,8 +11,6 @@
 #include <iostream>
 #include <functional>
 
-using namespace std;
-
 
 // <Task1>
 void getOutFile(Task1 &taskSlot) {
@@ -31,7 +29,7 @@ int main() {
     Task5 task5Slot = Task5(L"task5.txt");
     Task6 task6Slot = Task6(L"task6.txt", L"task6_out.txt");
     
-    map<wstring, vector<MenuItem>> menuMap;
+    map<std::wstring, std::vector<MenuItem>> menuMap;
 
     menuMap[L"1.6 Элементы кратные k"] = {
         {L"Создать бинарный файл", [&task1Slot]() { 
@@ -71,7 +69,7 @@ int main() {
             task3Slot.fillFile();
         }},
         {L"Добавить игрушку в файл", [&task3Slot]() { 
-            wstring toyName = input<wstring>(L"Введите название игрушки", [](wstring x) { return x.length() > 0; });
+            std::wstring toyName = input<std::wstring>(L"Введите название игрушки", [](std::wstring x) { return x.length() > 0; });
             double toyPrice = input<double>(L"Введите цену", [](double x) { return x > 0; });
             int toyMinAge = input<int>(L"Введите мин.возраст", [](int x) { return x >= 0; });
             int toyMaxAge = input<int>(L"Введите макс.возраст", [&toyMinAge](int x) { return x >= 0 and x >= toyMinAge; });
@@ -132,7 +130,7 @@ int main() {
             task6Slot.createFile();
         }},
         {L"Добавить строчку в файл", [&task6Slot]() { 
-            wstring newLine = input<wstring>(L"Введите строку");
+            std::wstring newLine = input<std::wstring>(L"Введите строку");
             task6Slot.addFileLine(newLine); 
         }},
         {L"Скопировать строки без en символов", [&task6Slot]() { 

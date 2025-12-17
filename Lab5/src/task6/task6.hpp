@@ -1,26 +1,23 @@
 #pragma once
 
 #include <string>
-#include <vector>
-
-using namespace std;
 
 class Task6 {
 private:
-    wstring inFilename;
-    wstring outFilename;
+    std::wstring inFilename;
+    std::wstring outFilename;
 
     bool isRuLetter(wchar_t ch);
-    bool containsRuLetters(const wstring& line);
+    bool containsRuLetters(const std::wstring& line);
 
 public:
-    Task6(wstring inFilename, wstring outFilename);
+    Task6(std::wstring inFilename, std::wstring outFilename);
 
     void createFile();
 
-    void addFileLine(const wstring& line);
+    void addFileLine(const std::wstring& line);
     
     void copyLines();
     
-    void printFile(const wstring& filename);
+    void printFile(const std::wstring& filename);
 };

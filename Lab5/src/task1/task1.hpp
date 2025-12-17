@@ -2,19 +2,17 @@
 
 #include <string>
 
-using namespace std;
-
 class Task1 {
 private:
-    wstring inFilename;
-    wstring outFilename;
+    std::wstring inFilename;
+    std::wstring outFilename;
 
 public:
-    Task1(wstring inFilename, wstring outFilename);
+    Task1(std::wstring inFilename, std::wstring outFilename);
     
     void fillFile(int count, int minValue, int maxValue);
 
     void copyMultiplesOfK(int k);
     
-    void printFile(const wstring& filename);
+    void printFile(const std::wstring& filename);
 };

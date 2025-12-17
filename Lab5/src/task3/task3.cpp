@@ -7,10 +7,9 @@
 #include <cstring>
 #include <limits>
 
-using namespace std;
 namespace fs = std::filesystem;
 
-Task3::Task3(wstring filename) 
+Task3::Task3(std::wstring filename) 
     : filename(filename) {
 }
 
@@ -32,7 +31,7 @@ void Task3::fillFile() {
     print(L"Создан новый файл", filename);
     print(L"\nДобавление игрушек в файл:");
     
-    vector<Toy> sampleToys;
+    std::vector<Toy> sampleToys;
     Toy toy;
 
     wcscpy(toy.name, L"Мяч");
@@ -94,7 +93,7 @@ void Task3::fillFile() {
     print(L"Файл успешно заполнен!");
 }
 
-void Task3::addToy(const wstring& name, double price, int minAge, int maxAge) {
+void Task3::addToy(const std::wstring& name, double price, int minAge, int maxAge) {
     fs::path path(filename);
     
     ofstream file(path, ios::binary | ios::app);
@@ -153,11 +152,11 @@ bool Task3::findMostExpensive(Toy& result) {
     double maxPrice = -1.0;
     
     for (const auto& toy : toys) {
-        wstring toyName = toy.name;
+        std::wstring toyName = toy.name;
         
         transform(toyName.begin(), toyName.end(), toyName.begin(), ::towlower);
         
-        if (toyName.find(L"конструктор") != wstring::npos) {
+        if (toyName.find(L"конструктор") != std::wstring::npos) {
             if (toy.price > maxPrice) {
                 maxPrice = toy.price;
                 result = toy;

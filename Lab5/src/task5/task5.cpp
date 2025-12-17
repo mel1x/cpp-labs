@@ -6,10 +6,9 @@
 #include <cstdlib>
 #include <ctime>
 
-using namespace std;
 namespace fs = std::filesystem;
 
-Task5::Task5(wstring filename) 
+Task5::Task5(std::wstring filename) 
     : filename(filename) {
     srand(time(0));
 }
@@ -129,7 +128,7 @@ void Task5::printFile() {
     print(L"Содержимое файла", filename, L":");
     print();
     
-    wstring line;
+    std::wstring line;
     int lineNumber = 1;
     
     while (getline(file, line)) {

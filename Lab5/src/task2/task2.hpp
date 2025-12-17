@@ -3,19 +3,17 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 class Task2 {
 private:
-    wstring filename;
+    std::wstring filename;
     int n;
-    vector<vector<int>> matrix;
+    std::vector<std::vector<int>> matrix;
 
     int getColumnSum(int col);
     int findMinSumColumn();
 
 public:
-    Task2(wstring filename, int n);
+    Task2(std::wstring filename, int n);
 
     void fillFile(int count, int minValue, int maxValue);
 

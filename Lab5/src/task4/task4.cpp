@@ -6,10 +6,9 @@
 #include <cstdlib>
 #include <ctime>
 
-using namespace std;
 namespace fs = std::filesystem;
 
-Task4::Task4(wstring filename) 
+Task4::Task4(std::wstring filename) 
     : filename(filename) {
     srand(time(0));
 }

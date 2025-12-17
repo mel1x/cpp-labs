@@ -8,15 +8,12 @@
 #include <locale>
 #include <codecvt>
 
-using namespace std;
-
-
-string wstringToString(const wstring& wstr) {
-    wstring_convert<codecvt_utf8<wchar_t>> converter;
+string wstringToString(const std::wstring& wstr) {
+    std::wstring_convert<codecvt_utf8<wchar_t>> converter;
     return converter.to_bytes(wstr);
 }
 
-Task1::Task1(wstring inFilename, wstring outFilename) 
+Task1::Task1(std::wstring inFilename, std::wstring outFilename) 
     : inFilename(inFilename), outFilename(outFilename) {
     srand(time(0));
 }
@@ -104,7 +101,7 @@ void Task1::copyMultiplesOfK(int k) {
     outputFile.close();
 }
 
-void Task1::printFile(const wstring& filename) {
+void Task1::printFile(const std::wstring& filename) {
     string strFilename = wstringToString(filename);
     
     ifstream file(strFilename, ios::binary | ios::in);

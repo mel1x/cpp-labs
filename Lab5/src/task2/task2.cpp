@@ -7,12 +7,11 @@
 #include <filesystem>
 #include <limits>
 
-using namespace std;
 namespace fs = std::filesystem;
 
-Task2::Task2(wstring filename, int n) 
+Task2::Task2(std::wstring filename, int n) 
     : filename(filename), n(n) {
-    matrix.resize(n, vector<int>(n, 0));
+    matrix.resize(n, std::vector<int>(n, 0));
     srand(time(0));
 }
 
@@ -119,7 +118,7 @@ int Task2::findMinSumColumn() {
 void Task2::replaceColumns() {
     int minCol = findMinSumColumn();
     
-    vector<int> minColumn(n);
+    std::vector<int> minColumn(n);
     for (int i = 0; i < n; i++) {
         minColumn[i] = matrix[i][minCol];
     }

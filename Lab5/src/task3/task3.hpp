@@ -3,8 +3,6 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 struct Toy {
     wchar_t name[50];
     double price;
@@ -14,15 +12,15 @@ struct Toy {
 
 class Task3 {
 private:
-    wstring filename;
-    vector<Toy> toys;
+    std::wstring filename;
+    std::vector<Toy> toys;
 
 public:
-    Task3(wstring filename);
+    Task3(std::wstring filename);
     
     void fillFile();
 
-    void addToy(const wstring& name, double price, int minAge, int maxAge);
+    void addToy(const std::wstring& name, double price, int minAge, int maxAge);
     
     void loadToys();
 
